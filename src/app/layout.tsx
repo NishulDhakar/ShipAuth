@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/common/ThemeProviders";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,15 +21,52 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          {/* LIGHT MODE BLOBS */}
+          <div className="absolute top-0 left-0 w-full h-[1000px] opacity-40 mix-blend-multiply pointer-events-none overflow-hidden dark:hidden">
+            
+            {/* Pink / Red Blob */}
+            <div
+              className="absolute top-0 left-0 w-1/2 h-full bg-[#FF6B6B]/50 rounded-full blur-3xl"
+              style={{ filter: "blur(100px)", transform: "translate(-20%, -20%)" }}
+            />
+
+            {/* Blue / Cyan Blob */}
+            <div
+              className="absolute top-0 right-0 w-1/2 h-full bg-[#4F46E5]/50 rounded-full blur-3xl"
+              style={{ filter: "blur(100px)", transform: "translate(20%, -20%)" }}
+            />
+          </div>
+
+          {/* DARK MODE RADIAL GLOW */}
+          <div className="hidden dark:block absolute inset-0 bg-[#020617] -z-10">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle 500px at 50% 200px, #3e3e3e, transparent)",
+              }}
+            />
+          </div>
+
+          {children}
+          <Analytics />
+
+        </ThemeProvider>
       </body>
     </html>
   );

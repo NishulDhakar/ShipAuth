@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
+/* ============================
+   ROOT TOKENS
+============================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAFAFA;
+  --foreground: #1B1B1B;
+  --background-secondary: #F1F1F1;
+  --background-pure: #FFFFFF;
+  --text-main: #1B1B1B;
+  --text-secondary: #7D8692;
+  --text-muted: #525866;
 }
 
+/* ============================
+   TAILWIND THEME TOKENS
+============================ */
 @theme inline {
+  /* ===== Fonts ===== */
+  --font-sans: Inter, sans-serif;
+  --font-display: "Inter Display", sans-serif;
+
+  /* ===== Background Colors ===== */
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-pure: var(--background-pure);
+
+  /* ===== Primary Colors ===== */
+  --color-primary: var(--foreground);
+  --color-primary-light: #32323E;
+
+  /* ===== Accent Colors ===== */
+  --color-accent-cyan: #6AF7FE;
+  --color-accent-blue: #488CED;
+  --color-accent-purple: #8930FD;
+  --color-accent-sky: #49CCF9;
+  --color-accent-pink: #FF02F0;
+
+  /* ===== Text Colors ===== */
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* ===== Dashboard ===== */
+  --color-dashboard-bg: #F5F7FA;
+  --color-dashboard-border: #E1E4EA;
+
+  /* ===== Shadows ===== */
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(106, 247, 254, 0.5);
+
+  /* ===== Background Images ===== */
+  --bg-gradient-radial: radial-gradient(var(--tw-gradient-stops));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================
+   DARK MODE
+============================ */
+@custom-variant dark (&:is(.dark *));
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --background-secondary: #111111;
+  --background-pure: #000000;
+  --text-main: #ededed;
+  --text-secondary: #A0AEC0;
+  --text-muted: #718096;
+}
+
+/* ============================
+   BASE STYLES
+============================ */
+@layer base {
+  html {
+    font-family: Inter, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Inter Display", sans-serif;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Inter, system-ui, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================
+   UTILITIES
+============================ */
+
+/* Custom Scrollbar for dashboard table */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
